@@ -17,6 +17,13 @@ def create_item(db: Session, item: SchemaItemCreate):
 
     return db_item
 
+def delete_item(db: Session, item_id: int):
+    try:
+        db.query(Item).filter(Item.id == item_id).delete()
+        db.commit()
+    except Exception as exeption:
+        raise(exeption)
+    return{"deleted status": "Sucess"}
 
 
 

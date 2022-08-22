@@ -3,7 +3,7 @@ from typing import List
 from sqlalchemy.orm import Session
 from schema import SchemaItem, SchemaItemCreate
 from database import get_db
-from crud import get_item, get_items, create_item
+from crud import get_item, get_items, create_item, delete_item
 
 app = FastAPI()
 
@@ -30,9 +30,9 @@ def read_item(item_id: int, db: Session = Depends(get_db)):
 
     return db_item
 
-@app.put("/items", response_model=List[SchemaItem])
-def put_item(item: SchemaItemCreate, db: Session = Depends(get_db)):
-     return create_item(db=db, item=item)
+@app.delete("/items/{item_id}", response_model=SchemaItem)
+def delete_item_1(item_id: int, db: Session = Depends(get_db)):
+     return delete_item(db=db, item_id=item_id)
 
 
     
